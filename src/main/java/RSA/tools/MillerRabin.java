@@ -8,21 +8,22 @@ public class MillerRabin {
     private static int getS(BigInteger n) {
         int s = 0;
         BigInteger two = BigInteger.valueOf(2);
-        while ((n.mod(two)).equals(BigInteger.ZERO)) {
+        BigInteger x = n.subtract(BigInteger.ONE);
+        while ((x.mod(two)).equals(BigInteger.ZERO)) {
             s++;
-            n = n.divide(two);
+            x = x.divide(two);
         }
         return s;
     }
 
-    private static boolean isPrime(BigInteger n) {
+    public static boolean isPrime(BigInteger n) {
         boolean prime = false;
         int s = getS(n);
-        BigInteger d = (n.divide(BigInteger.ONE)).divide((BigInteger.TWO).pow(s));
-        int[] bases = {3, 5, 7, 11};
+        BigInteger d = (n.subtract(BigInteger.ONE)).divide((BigInteger.valueOf(2)).pow(s));
+        int[] bases = {3, 5, 7};
 
         for (int i : bases) {
-            if (!EuclideanAlgorithm.gcd(d, BigInteger.valueOf(i)).equals(BigInteger.ONE)) {
+            if (!(EuclideanAlgorithm.gcd(n, BigInteger.valueOf(i))).equals(BigInteger.ONE)) {
                 prime = false;
                 break;
             } else {
@@ -30,8 +31,10 @@ public class MillerRabin {
                     prime = true;
                 } else {
                     for (int r = 0; r < s; r++) {
-                        if (FastPower.calculate(BigInteger.valueOf(i), d.multiply(BigInteger.valueOf((int) pow(2, r))), n).equals(BigInteger.ONE)) {
+                        if (FastPower.calculate(BigInteger.valueOf(i), d.multiply(BigInteger.valueOf((int) pow(2, r))), n).equals(n.subtract(BigInteger.ONE))) {
                             prime = true;
+                            break;
+                        } else {
                         }
                     }
                 }
@@ -42,11 +45,11 @@ public class MillerRabin {
 
     public static BigInteger createPrime(int bitLength) {
         BigInteger random = new BigInteger(bitLength, new java.util.Random());
-        if (random.mod(BigInteger.TWO).equals(BigInteger.ZERO)) {
+        if (random.mod(BigInteger.valueOf(2)).equals(BigInteger.ZERO)) {
             random = random.add(BigInteger.ONE);
         }
         while (!isPrime(random)) {
-            random.add(BigInteger.TWO);
+            random = random.add(BigInteger.valueOf(2));
         }
         return random;
     }

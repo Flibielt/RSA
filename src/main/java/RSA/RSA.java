@@ -24,7 +24,6 @@ public class RSA {
         privateKey[1] = MillerRabin.createPrime(bitLength);
         System.out.println("q: " + privateKey[1].toString(16));
 
-        calculate();
     }
 
     /**
@@ -36,8 +35,6 @@ public class RSA {
     RSA(int p, int q) {
         privateKey[0] = BigInteger.valueOf(p);
         privateKey[1] = BigInteger.valueOf(q);
-
-        calculate();
     }
 
     private void calculate() {
@@ -50,7 +47,7 @@ public class RSA {
 
         //Calculate e
         publicKey[1] = BigInteger.valueOf(3);
-        while(!EuclideanAlgorithm.gcd(privateKey[1], fi_n).equals(BigInteger.ONE)){
+        while(!(EuclideanAlgorithm.gcd(publicKey[1], fi_n).equals(BigInteger.ONE))) {
             publicKey[1] = publicKey[1].add(BigInteger.valueOf(2));
         }
         System.out.println("e: " + publicKey[1].toString(16));
@@ -75,8 +72,7 @@ public class RSA {
             java.lang.System.exit(-1);
         }
 
-        if (rsa != null) {
-            rsa.calculate();
-        }
+        rsa.calculate();
+
     }
 }
