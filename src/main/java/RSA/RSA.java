@@ -1,5 +1,7 @@
 package RSA;
 
+import RSA.tools.EuclideanAlgorithm;
+
 import java.math.BigInteger;
 
 public class RSA {
@@ -7,7 +9,6 @@ public class RSA {
     //Primes
     private BigInteger[] privateKey = new BigInteger[2];
     private BigInteger[] publicKey = new BigInteger[2];
-    private BigInteger fi_n, d;
     //The length of the message
 
     /**
@@ -40,6 +41,8 @@ public class RSA {
     }
 
     private void calculate() {
+        BigInteger fi_n, d;
+        //Calculate n
         publicKey[0] = privateKey[0].multiply(privateKey[1]);
         fi_n = privateKey[0].subtract(BigInteger.ONE).multiply(privateKey[1].subtract(BigInteger.ONE));
         System.out.println("fi(n): " + fi_n.toString(16));
@@ -47,7 +50,7 @@ public class RSA {
 
         //Calculate e
         publicKey[1] = BigInteger.valueOf(3);
-        while(!publicKey[1].gcd(fi_n).equals(BigInteger.ONE)){  //TODO: instead of gcd use own function
+        while(!EuclideanAlgorithm.gcd(privateKey[1], fi_n).equals(BigInteger.ONE)){
             publicKey[1] = publicKey[1].add(BigInteger.valueOf(2));
         }
         System.out.println("e: " + publicKey[1].toString(16));
