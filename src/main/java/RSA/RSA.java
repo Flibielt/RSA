@@ -10,8 +10,14 @@ public class RSA {
     private BigInteger fi_n, d;
     //The length of the message
 
+    /**
+     * Constructor for the RSA.
+     *
+     * @param bitLength the length of the message
+     */
     RSA(int bitLength) {
         bitLength = bitLength*8+1;
+        //TODO: Create prime numbers with own function
         privateKey[0] = new BigInteger(bitLength, 100, new java.util.Random());
         System.out.println("p: " + privateKey[0].toString(16));
         privateKey[1] = new BigInteger(bitLength, 100, new java.util.Random());
@@ -20,6 +26,12 @@ public class RSA {
         calculate();
     }
 
+    /**
+     * Constructor for the RSA.
+     *
+     * @param p first prime number
+     * @param q second prime number
+     */
     RSA(int p, int q) {
         privateKey[0] = BigInteger.valueOf(p);
         privateKey[1] = BigInteger.valueOf(q);
