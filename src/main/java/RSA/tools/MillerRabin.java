@@ -15,7 +15,7 @@ public class MillerRabin {
         return s;
     }
 
-    public static boolean isPrime(BigInteger n) {
+    private static boolean isPrime(BigInteger n) {
         boolean prime = false;
         int s = getS(n);
         BigInteger d = (n.divide(BigInteger.ONE)).divide((BigInteger.TWO).pow(s));
@@ -38,5 +38,16 @@ public class MillerRabin {
             }
         }
         return prime;
+    }
+
+    public static BigInteger createPrime(int bitLength) {
+        BigInteger random = new BigInteger(bitLength, new java.util.Random());
+        if (random.mod(BigInteger.TWO).equals(BigInteger.ZERO)) {
+            random = random.add(BigInteger.ONE);
+        }
+        while (!isPrime(random)) {
+            random.add(BigInteger.TWO);
+        }
+        return random;
     }
 }

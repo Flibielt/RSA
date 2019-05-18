@@ -1,6 +1,7 @@
 package RSA;
 
 import RSA.tools.EuclideanAlgorithm;
+import RSA.tools.MillerRabin;
 
 import java.math.BigInteger;
 
@@ -18,10 +19,9 @@ public class RSA {
      */
     RSA(int bitLength) {
         bitLength = bitLength*8+1;
-        //TODO: Create prime numbers with own function
-        privateKey[0] = new BigInteger(bitLength, 100, new java.util.Random());
+        privateKey[0] = MillerRabin.createPrime(bitLength);
         System.out.println("p: " + privateKey[0].toString(16));
-        privateKey[1] = new BigInteger(bitLength, 100, new java.util.Random());
+        privateKey[1] = MillerRabin.createPrime(bitLength);
         System.out.println("q: " + privateKey[1].toString(16));
 
         calculate();
