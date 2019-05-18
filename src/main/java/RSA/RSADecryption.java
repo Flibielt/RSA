@@ -8,7 +8,7 @@ public class RSADecryption {
 
         if(args.length != 3){
             System.out.println("RSADecryption d n c");
-            java.lang.System.exit(-1);
+            System.exit(-1);
         }
 
         BigInteger d, n, c, m;

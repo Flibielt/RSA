@@ -7,7 +7,7 @@ public class RSAEncryption {
     public static void main(String[] args) {
         if(args.length != 3){
             System.out.println("RSAEncryption e n m");
-            java.lang.System.exit(-1);
+            System.exit(-1);
         }
 
         BigInteger e, n, m, c;
