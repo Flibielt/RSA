@@ -59,4 +59,24 @@ public class RSA {
         d = publicKey[1].modInverse(fi_n);
         System.out.println("d: " + d.toString(16));
     }
+
+    public static void main(String[] args) {
+        RSA rsa = null;
+        if(args.length == 2){
+            rsa = new RSA(Integer.parseInt(args[0]), Integer.parseInt(args[1]));
+        }
+        else if(args.length == 1){
+            int bit_length = Integer.parseInt(args[0])*8+1;
+            rsa = new RSA(bit_length);
+        }
+        else{
+            System.out.println("RSA p q");
+            System.out.println("RSA m_karakterek_max_szama");
+            java.lang.System.exit(-1);
+        }
+
+        if (rsa != null) {
+            rsa.calculate();
+        }
+    }
 }
