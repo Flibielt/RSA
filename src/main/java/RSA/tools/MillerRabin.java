@@ -51,6 +51,7 @@ public class MillerRabin {
         while (!isPrime(random)) {
             random = random.add(BigInteger.valueOf(2));
         }
+        System.out.println("Bitlength: " + random.bitLength());
         return random;
     }
 }

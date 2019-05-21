@@ -65,8 +65,9 @@ public class RSA {
         else if(args.length == 1){
             int bit_length = Integer.parseInt(args[0])*8+1;
             rsa = new RSA(bit_length);
-        }
-        else{
+        } else if (args.length == 0) {
+            rsa = new RSA(8);
+        } else {
             System.out.println("RSA p q");
             System.out.println("RSA m_karakterek_max_szama");
             java.lang.System.exit(-1);
