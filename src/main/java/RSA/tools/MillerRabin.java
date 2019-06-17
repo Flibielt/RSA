@@ -34,7 +34,6 @@ public class MillerRabin {
                         if (FastPower.calculate(BigInteger.valueOf(i), d.multiply(BigInteger.valueOf((int) pow(2, r))), n).equals(n.subtract(BigInteger.ONE))) {
                             prime = true;
                             break;
-                        } else {
                         }
                     }
                 }

@@ -1,6 +1,7 @@
 package RSA;
 
 import RSA.tools.EuclideanAlgorithm;
+import RSA.tools.ExtendedEuclidianAlgorithm;
 import RSA.tools.MillerRabin;
 
 import java.math.BigInteger;
@@ -15,10 +16,10 @@ public class RSA {
     /**
      * Constructor for the RSA.
      *
-     * @param bitLength the length of the message
+     * @param bitLength the length of the key
      */
     RSA(int bitLength) {
-        bitLength = bitLength*8+1;
+        bitLength = bitLength/2;
         privateKey[0] = MillerRabin.createPrime(bitLength);
         System.out.println("p: " + privateKey[0].toString(16));
         privateKey[1] = MillerRabin.createPrime(bitLength);
@@ -38,10 +39,11 @@ public class RSA {
     }
 
     private void calculate() {
+        //ExtendedEuclidianAlgorithm.gcd(BigInteger.valueOf(141), BigInteger.valueOf(17));
         BigInteger fi_n, d;
         //Calculate n
         publicKey[0] = privateKey[0].multiply(privateKey[1]);
-        fi_n = privateKey[0].subtract(BigInteger.ONE).multiply(privateKey[1].subtract(BigInteger.ONE));
+        fi_n = (privateKey[0].subtract(BigInteger.ONE)).multiply(privateKey[1].subtract(BigInteger.ONE));
         System.out.println("fi(n): " + fi_n.toString(16));
         System.out.println("n: " + publicKey[0].toString(16));
 
@@ -55,6 +57,8 @@ public class RSA {
         //Calculate d
         d = publicKey[1].modInverse(fi_n);
         System.out.println("d: " + d.toString(16));
+
+        d = ExtendedEuclidianAlgorithm.gcd(publicKey[1], fi_n);
     }
 
     public static void main(String[] args) {
@@ -63,10 +67,10 @@ public class RSA {
             rsa = new RSA(Integer.parseInt(args[0]), Integer.parseInt(args[1]));
         }
         else if(args.length == 1){
-            int bit_length = Integer.parseInt(args[0])*8+1;
+            int bit_length = Integer.parseInt(args[0]);
             rsa = new RSA(bit_length);
         } else if (args.length == 0) {
-            rsa = new RSA(8);
+            rsa = new RSA(1024);
         } else {
             System.out.println("RSA p q");
             System.out.println("RSA m_karakterek_max_szama");

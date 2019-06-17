@@ -6,7 +6,7 @@ public class EuclideanAlgorithm {
     public static BigInteger gcd(BigInteger x, BigInteger y) {
         BigInteger divided = null;
         BigInteger remainder = BigInteger.ONE;
-        if (x.compareTo(y) == -1){
+        if (x.compareTo(y) == -1) {
             BigInteger swap = y;
             y = x;
             x = swap;
